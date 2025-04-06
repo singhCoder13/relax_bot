@@ -1,46 +1,48 @@
-from flask import Flask, render_template, request, jsonify
-from flask_cors import CORS
+from flask import Flask, request, jsonify, render_template
 from dotenv import load_dotenv
-import requests
 import os
+import requests
 
-# Load API key from .env
 load_dotenv()
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
-# Flask app
 app = Flask(__name__)
-CORS(app)
 
-@app.route("/")
-def home():
-    return render_template("index.html")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+print("✅ Loaded Gemini API Key:", GEMINI_API_KEY)  # TEMPORARY DEBUG LINE
 
-@app.route("/chat", methods=["POST"])
-def chat():
+@app.route('/')
+def index():
+    return render_template('index.html')
+@app.route('/chat', methods=['POST'])
+def get_gemini_reply():
     data = request.get_json()
-    user_input = data.get("message", "")
-
-    headers = {
-        "Authorization": f"Bearer {GEMINI_API_KEY}",
-        "Content-Type": "application/json"
-    }
+    user_input = data.get('message')
 
     payload = {
-        "contents": [{"parts": [{"text": user_input}]}]
+        "contents": [{
+            "parts": [{"text": user_input}]
+        }]
     }
 
-    gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={GEMINI_API_KEY}"
-
     try:
-        response = requests.post(gemini_url, json=payload, headers=headers)
-        result = response.json()
-        reply = result["candidates"][0]["content"]["parts"][0]["text"]
+        response = requests.post(
+            f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI_API_KEY}",
+            headers={"Content-Type": "application/json"},
+            json=payload
+        )
+
+        print("Gemini API Status Code:", response.status_code)
+        print("Gemini API Response:", response.text)
+
+        if response.ok:
+            result = response.json()
+            reply = result['candidates'][0]['content']['parts'][0]['text']
+            return jsonify({'reply': reply})
+        else:
+            return jsonify({'reply': 'Error connecting to Gemini API'}), 500
     except Exception as e:
-        print("Error:", e)
-        reply = "Sorry, I couldn't understand that."
+        print("Error calling Gemini API:", str(e))
+        return jsonify({'reply': 'Internal server error'}), 500
 
-    return jsonify({"reply": reply})
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True)
