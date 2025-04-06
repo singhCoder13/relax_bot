@@ -1,34 +1,69 @@
+/* General Styles */
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to right, #dbeafe, #f0fdf4);
-  color: #333;
-  transition: background 0.5s ease;
+  font-family: 'Poppins', sans-serif;
+  color: #1f1f1f;
+  background: linear-gradient(-45deg, #dff9fb, #c7ecee, #f6e58d, #ffbe76);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
 }
 
-nav {
-  background-color: #e0f7fa;
-  padding: 12px;
+@keyframes gradientBG {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
+
+.header {
   text-align: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 30px 10px 10px;
 }
 
-nav a {
-  margin: 0 15px;
+.header h1 {
+  font-size: 2.5em;
+  margin: 0;
+  color: #34495e;
+}
+
+.header p {
+  font-size: 1.1em;
+  color: #636e72;
+  margin: 5px 0 20px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px 0;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar a {
   text-decoration: none;
-  color: #00796b;
-  font-weight: bold;
-  transition: color 0.3s;
+  font-weight: 600;
+  color: #2d3436;
+  padding: 8px 12px;
+  border-radius: 20px;
+  transition: background 0.3s;
 }
 
-nav a:hover {
-  color: #004d40;
+.navbar a:hover {
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .section {
   display: none;
   padding: 20px;
-  animation: fadeIn 0.6s ease;
+  max-width: 800px;
+  margin: auto;
+  border-radius: 20px;
+  backdrop-filter: blur(6px);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .section.active {
@@ -36,76 +71,86 @@ nav a:hover {
 }
 
 .chat-box {
-  background-color: #ffffffaa;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 20px;
   border-radius: 12px;
-  padding: 15px;
-  height: 250px;
-  overflow-y: auto;
-  margin-bottom: 10px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+  min-height: 100px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  font-style: italic;
 }
 
 .input-area {
   display: flex;
   gap: 10px;
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  max-width: 800px;
+  margin: auto;
+  padding: 0 10px;
 }
 
-input[type="text"] {
-  flex-grow: 1;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-}
-
-button {
-  padding: 10px 20px;
-  background-color: #81c784;
+.input-area input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 25px;
   border: none;
-  border-radius: 8px;
+  background: rgba(255,255,255,0.7);
+  font-size: 1em;
+}
+
+.input-area button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 25px;
+  background: #74b9ff;
   color: white;
   font-weight: bold;
   cursor: pointer;
   transition: background 0.3s;
 }
 
-button:hover {
-  background-color: #66bb6a;
+.input-area button:hover {
+  background: #0984e3;
 }
 
-.typing-indicator {
+.typing {
   font-style: italic;
-  color: #757575;
-  display: none;
-  animation: blink 1.5s infinite;
+  color: #636e72;
+  margin-top: 10px;
+}
+
+.footer {
+  text-align: center;
+  padding: 30px 20px;
+  font-size: 0.9em;
+  color: #2d3436;
+  margin-top: 120px;
 }
 
 .floating-quote {
-  position: fixed;
-  top: 10px;
-  right: 15px;
-  background-color: #ffffffdd;
-  padding: 10px 15px;
-  border-radius: 20px;
-  font-style: italic;
-  font-size: 16px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  animation: float 6s ease-in-out infinite;
+  text-align: center;
+  font-size: 1em;
+  color: #27ae60;
+  margin-bottom: 20px;
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+/* Color overrides for each mode */
+#mood.section {
+  background: linear-gradient(135deg, #f1f2f6, #dff9fb);
 }
 
-@keyframes blink {
-  0% { opacity: 0.3; }
-  50% { opacity: 1; }
-  100% { opacity: 0.3; }
+#relaxation.section {
+  background: linear-gradient(135deg, #ffeaa7, #fab1a0);
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+#spiritual.section {
+  background: linear-gradient(135deg, #dfe6e9, #a29bfe);
 }
+
+#motivation.section {
+  background: linear-gradient(135deg, #ff7675, #ffeaa7);
+}
+
