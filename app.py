@@ -13,14 +13,21 @@ print("✅ Loaded Gemini API Key:", GEMINI_API_KEY)  # TEMPORARY DEBUG LINE
 @app.route('/')
 def index():
     return render_template('index.html')
+
+    
 @app.route('/chat', methods=['POST'])
 def get_gemini_reply():
     data = request.get_json()
     user_input = data.get('message')
+    mood = data.get('mood', '')
+
+    # Add mood context to user input
+    prompt = f"The user is seeking {mood} support. Respond accordingly. User says: {user_input}"
+
 
     payload = {
         "contents": [{
-            "parts": [{"text": user_input}]
+            "parts": [{"text": prompt}]
         }]
     }
 

@@ -5,21 +5,22 @@ function showSection(id) {
   document.getElementById(id).classList.add("active");
 }
 
-// Simulated message sending logic (can be replaced with backend connection)
+// Section-specific message senders with mood tag
 function sendMood() {
-  sendMessage("moodInput", "chatBox", "typingIndicator");
+  sendMessage("moodInput", "chatBox", "typingIndicator", "mood-analysis");
 }
 function sendRelaxation() {
-  sendMessage("relaxationInput", "chatBox-relaxation", "typingIndicator-relaxation");
+  sendMessage("relaxationInput", "chatBox-relaxation", "typingIndicator-relaxation", "relaxation");
 }
 function sendSpiritual() {
-  sendMessage("spiritualInput", "chatBox-spiritual", "typingIndicator-spiritual");
+  sendMessage("spiritualInput", "chatBox-spiritual", "typingIndicator-spiritual", "spiritual");
 }
 function sendMotivation() {
-  sendMessage("motivationInput", "chatBox-motivation", "typingIndicator-motivation");
+  sendMessage("motivationInput", "chatBox-motivation", "typingIndicator-motivation", "motivation");
 }
 
-async function sendMessage(inputId, boxId, typingId) {
+// Generic message handler with mood
+async function sendMessage(inputId, boxId, typingId, mood) {
   const input = document.getElementById(inputId);
   const chatBox = document.getElementById(boxId);
   const typing = document.getElementById(typingId);
@@ -36,8 +37,8 @@ async function sendMessage(inputId, boxId, typingId) {
   typing.style.display = "block";
 
   try {
-    // Get Gemini AI reply
-    const replyFromGemini = await getGeminiReply(userText);
+    // Get Gemini AI reply based on mood
+    const replyFromGemini = await getGeminiReply(userText, mood);
 
     // Hide typing and show bot reply
     typing.style.display = "none";
@@ -46,27 +47,26 @@ async function sendMessage(inputId, boxId, typingId) {
   } catch (err) {
     typing.style.display = "none";
     console.log(err);
-    chatBox.innerHTML += `<div class="bot-message error"><strong>Bot:</strong> Sorry, something went wrong 😓 ${err}</div>`;
+    chatBox.innerHTML += `<div class="bot-message error"><strong>Bot:</strong> Sorry, something went wrong 😓</div>`;
     chatBox.scrollTop = chatBox.scrollHeight;
   }
 }
 
-
-async function getGeminiReply(userText) {
+// API call including mood context
+async function getGeminiReply(userText, mood) {
   try {
-      const response = await fetch("http://localhost:5000/chat", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ message: userText })
-      });
+    const response = await fetch("http://localhost:5000/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ message: userText, mood: mood })
+    });
 
-      const data = await response.json();
-      return data.reply;
+    const data = await response.json();
+    return data.reply;
   } catch (error) {
-      console.error("Error getting reply:", error);
-      return "Something went wrong. Please try again.";
+    console.error("Error getting reply:", error);
+    return "Something went wrong. Please try again.";
   }
 }
-
