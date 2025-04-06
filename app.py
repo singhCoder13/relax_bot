@@ -2,10 +2,13 @@ from flask import Flask, request, jsonify, render_template
 from dotenv import load_dotenv
 import os
 import requests
+from flask_cors import CORS
+
 
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)  # 👈 This enables CORS for all routes
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 print("✅ Loaded Gemini API Key:", GEMINI_API_KEY)  # TEMPORARY DEBUG LINE
