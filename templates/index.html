@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calm Companion – Mood Support Chat</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-mood">
+
+  <!-- Navigation Bar -->
+  <nav>
+    <a href="#" onclick="showSection('mood')">Mood Analysis</a>
+    <a href="#" onclick="showSection('relaxation')">Relaxation</a>
+    <a href="#" onclick="showSection('spiritual')">Spiritual</a>
+    <a href="#" onclick="showSection('motivation')">Motivation</a>
+  </nav>
+
+  <!-- Calming Message -->
+  <div class="floating-quote" id="calmQuote">You are safe here 🌿</div>
+
+  <!-- Mood Section -->
+  <div id="mood" class="section active">
+    <h2>Mood Analysis Chat</h2>
+    <div id="chatBox"></div>
+    <div id="typingIndicator" style="display:none;">🧘 Typing...</div>
+    <div class="input-area">
+      <input type="text" id="moodInput" placeholder="Tell me how you're feeling...">
+      <button onclick="sendMood()">Send</button>
+    </div>
+  </div>
+
+  <!-- Relaxation Section -->
+  <div id="relaxation" class="section">
+    <h2>Relaxation Mode</h2>
+    <p>Let’s calm down together. Try taking 3 deep breaths. 🌬️</p>
+    <div id="chatBox-relaxation"></div>
+    <div id="typingIndicator-relaxation" style="display:none;">🧘 Typing...</div>
+    <div class="input-area">
+      <input type="text" id="relaxationInput" placeholder="Type something...">
+      <button onclick="sendRelaxation()">Send</button>
+    </div>
+  </div>
+
+  <!-- Spiritual Section -->
+  <div id="spiritual" class="section">
+    <h2>Spiritual Mode</h2>
+    <p>You are not alone. Try this affirmation: "I am light, I am peace." 🕊️</p>
+    <div id="chatBox-spiritual"></div>
+    <div id="typingIndicator-spiritual" style="display:none;">🧘 Typing...</div>
+    <div class="input-area">
+      <input type="text" id="spiritualInput" placeholder="Type something...">
+      <button onclick="sendSpiritual()">Send</button>
+    </div>
+  </div>
+
+  <!-- Motivation Section -->
+  <div id="motivation" class="section">
+    <h2>Motivation Mode</h2>
+    <p>“Even the darkest night will end and the sun will rise.” – Victor Hugo 🌅</p>
+    <div id="chatBox-motivation"></div>
+    <div id="typingIndicator-motivation" style="display:none;">🧘 Typing...</div>
+    <div class="input-area">
+      <input type="text" id="motivationInput" placeholder="Type something...">
+      <button onclick="sendMotivation()">Send</button>
+    </div>
+  </div>
+
+  <!-- Link to JS -->
+  <script src="script.js"></script>
+</body>
+</html>

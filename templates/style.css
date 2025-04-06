@@ -1,0 +1,111 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #dbeafe, #f0fdf4);
+  color: #333;
+  transition: background 0.5s ease;
+}
+
+nav {
+  background-color: #e0f7fa;
+  padding: 12px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+nav a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #00796b;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #004d40;
+}
+
+.section {
+  display: none;
+  padding: 20px;
+  animation: fadeIn 0.6s ease;
+}
+
+.section.active {
+  display: block;
+}
+
+.chat-box {
+  background-color: #ffffffaa;
+  border-radius: 12px;
+  padding: 15px;
+  height: 250px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+.input-area {
+  display: flex;
+  gap: 10px;
+}
+
+input[type="text"] {
+  flex-grow: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #81c784;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #66bb6a;
+}
+
+.typing-indicator {
+  font-style: italic;
+  color: #757575;
+  display: none;
+  animation: blink 1.5s infinite;
+}
+
+.floating-quote {
+  position: fixed;
+  top: 10px;
+  right: 15px;
+  background-color: #ffffffdd;
+  padding: 10px 15px;
+  border-radius: 20px;
+  font-style: italic;
+  font-size: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes blink {
+  0% { opacity: 0.3; }
+  50% { opacity: 1; }
+  100% { opacity: 0.3; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
